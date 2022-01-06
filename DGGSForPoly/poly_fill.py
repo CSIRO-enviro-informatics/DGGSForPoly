@@ -1,7 +1,7 @@
 from auspixdggs.auspixengine.dggs import Cell, RHEALPixDGGS
 from auspixdggs.auspixengine.ellipsoids import WGS84_ELLIPSOID
-from poly_fill.poly_fill_helpers import add_finest_subcells, raytrace_centroid_in_poly
-from cell_operations.cell_helpers import  get_cell_poly, str_to_list
+from DGGSForPoly.poly_fill_helpers import add_finest_subcells #, raytrace_centroid_in_poly
+from DGGSForPoly.cell_helpers import  get_cell_poly, str_to_list
 from shapely.geometry import shape, Point
 
 def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1), max_res=None, hybrid=True, return_objects=False, fill_strategy='poly_fully_covered_by_cells'):

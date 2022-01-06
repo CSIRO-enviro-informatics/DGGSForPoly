@@ -2,7 +2,7 @@ from ipyleaflet import Map, GeoData, basemaps
 import geopandas as gp
 from auspixdggs.auspixengine.dggs import Cell, RHEALPixDGGS
 from auspixdggs.auspixengine.ellipsoids import WGS84_ELLIPSOID
-from cell_operations.cell_helpers import get_cell_poly, str_to_list
+from DGGSForPoly.cell_helpers import get_cell_poly, str_to_list
 
 def cell_plot(cell_list=None, poly=None, zoom=10, rdggs=None):
     '''

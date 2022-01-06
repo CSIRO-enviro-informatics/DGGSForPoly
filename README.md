@@ -7,7 +7,7 @@ Contains a module with a function that, given an inputted Polygon (or set of Pol
 
 The function is built on top of the AusPIX DGGS Engine (https://github.com/GeoscienceAustralia/AusPIX_DGGS/) and makes use of Shapely's Binary Predicates (which is a ppossible area for future optimisation).
 
-### Fill Strategies
+#### Fill Strategies
 The function has 3 fill_strategies:   
     1) poly_fully_covered_by_cells -  returns a set of cells that completly encapsulating the polygon -> over estimates area   
     2) cells_fully_contained_in_poly -  returns a set of cells whose centroids are contained by the polygon.   

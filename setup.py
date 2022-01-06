@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="DGGSForPoly",
-    version="0.2.11",
+    version="0.2.16",
     author="Ross Petridis",
     author_email="ross.petridis@csiro.au",
     description="This package finds the rHEALPIX dggs cells for Polygons using the AusPIX dggs engine by Geoscience Australia.",
@@ -15,33 +15,20 @@ setuptools.setup(
     project_urls={
         "Bug Tracker": "https://github.com/CSIRO-enviro-informatics/vac-project-2021-dggs/issues",
     },
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    package_dir={"": "."}, # This directory
-    packages=setuptools.find_packages(where="."), # This directory
+    #package_dir={"": "."}, # This directory
+    #packages=setuptools.find_packages(where="."), # This directory
     
     #packages = ['cell_operations', 'poly_fill'], 
-    
-    python_requires=">=3.9",
-    
+    packages=setuptools.find_packages(),
+
+
     install_requires = [
-        'matplotlib',
-        'shapely',
+        'Shapely',
         'geopandas',
-        'autopep8',
-        'ipykernel',
-        'contextily',
-        'requests',
         'geojson',
         'ipyleaflet',
-        'scipy',
-        'pygeoj',
-        'numba',
+        'pandas',
     ],
-    
     
     dependency_links = [
         'git+https://github.com/manaakiwhenua/rhealpixdggs-py.git',
