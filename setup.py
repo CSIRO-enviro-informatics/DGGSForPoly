@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="DGGSForPoly",
-    version="0.2.8",
+    version="0.2.11",
     author="Ross Petridis",
     author_email="ross.petridis@csiro.au",
     description="This package finds the rHEALPIX dggs cells for Polygons using the AusPIX dggs engine by Geoscience Australia.",
@@ -20,8 +20,11 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "dggs_for_poly"},
-    packages=setuptools.find_packages(where="dggs_for_poly"),
+    package_dir={"": "."}, # This directory
+    packages=setuptools.find_packages(where="."), # This directory
+    
+    #packages = ['cell_operations', 'poly_fill'], 
+    
     python_requires=">=3.9",
     
     install_requires = [
