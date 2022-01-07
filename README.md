@@ -17,3 +17,20 @@ The function has 3 fill_strategies:
 Contains modules for calculating area of cell list and for visualising sets of cells and the polygon theyb represent. poly_fill utilises some functions in the helper module.  
 
 See the usage notebook inside of the dggs_for_poly package for a demonstration. 
+
+
+## Setting up environment
+
+```
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+# or on Windows: source .venv/Scripts/activate
+$ python setup.py install
+$ pip install -r requirements.txt
+```
+
+Include testing
+```
+$ pip install -U pytest
+$ pytest
+```
