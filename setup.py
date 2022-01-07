@@ -24,15 +24,12 @@ setuptools.setup(
 
     install_requires = [
         'Shapely',
-        'geopandas',
-        'geojson',
-        'ipyleaflet',
-        'pandas',
+        'geojson'
     ],
     
     dependency_links = [
         'git+https://github.com/manaakiwhenua/rhealpixdggs-py.git',
-        'git+https://github.com/CSIRO-enviro-informatics/AusPIX_DGGS.git'
+        'git+https://github.com/GeoscienceAustralia/AusPIX_DGGS.git'
     ]
     
     

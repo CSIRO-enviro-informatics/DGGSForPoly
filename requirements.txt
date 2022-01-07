@@ -1,0 +1,2 @@
+pandas
+git+https://github.com/GeoscienceAustralia/AusPIX_DGGS.git
