@@ -114,7 +114,7 @@ def poly_fill_from_geojson(geojson_obj=None, max_res=10, rdggs=RHEALPixDGGS(elli
     list_of_lists_of_dggs_cells=[None]*len(geojson_obj['features'])
 
     for i,feature in enumerate(geojson_obj['features']):
-        list_of_lists_of_dggs_cells[i]=polyfill(geojson=feature['geometry'], max_res=max_res, rdggs=rdggs, hybrid=hybrid, 
+        list_of_lists_of_dggs_cells[i]=poly_fill(geojson=feature['geometry'], max_res=max_res, rdggs=rdggs, hybrid=hybrid, 
                                                 return_objects=return_objects, fill_strategy=fill_strategy) 
  
     return list_of_lists_of_dggs_cells
