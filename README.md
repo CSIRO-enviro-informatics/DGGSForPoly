@@ -10,7 +10,7 @@ The function is built on top of the AusPIX DGGS Engine (https://github.com/Geosc
 #### Fill Strategies
 The function has 3 fill_strategies:   
     1) poly_fully_covered_by_cells -  returns a set of cells that completly encapsulating the polygon -> over estimates area   
-    2) cells_fully_contained_in_poly -  returns a set of cells whose centroids are contained by the polygon.   
+    2) centroids_in_poly -  returns a set of cells whose centroids are contained by the polygon.   
     3) cells_fully_contained_in_poly -  returns a set of cells completely *encapsulated by* the Polygon -> under estimates area   
 
 ## cell_operations
