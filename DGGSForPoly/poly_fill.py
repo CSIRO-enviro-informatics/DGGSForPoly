@@ -37,9 +37,9 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
     return_objects - if True, return auspixdggs cell objects, else return strings of the cells suids.
     
     fill_strategy: string specifying the desired fill strategy. Can be one of:
-        "centroids-in-poly" - includes cells if their centroids lie witihn the polygon
-        "cells-fully-contained-in-poly" - includes cells that are entirely within the polygon (always under estimates area)
-        "poly-fully-covered-by-cells" - includes cells that are fully or partially within the polygon. (always over estimates area)
+        "centroids_in_poly" - includes cells if their centroids lie witihn the polygon
+        "cells_fully_contained-in_poly" - includes cells that are entirely within the polygon (always under estimates area)
+        "poly_fully-covered_by_cells" - includes cells that are fully or partially within the polygon. (always over estimates area)
     
   
     gj_obj = geojson.loads(f.read()) and f = open("../spatial_data/ACT_SA1_Black_Mountain.geojson"); 
