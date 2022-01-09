@@ -1,7 +1,5 @@
 # DGGSForPoly
 
-This repo contains a 2 packages. 
-
 ## poly_fill
 Contains a module with a function that, given an inputted Polygon (or set of Polygons) and a desired resolution, the returns a (optionally hybridized) set of rHEALPIX DGGS cells that describe the geometry of the inputted polygon. 
 

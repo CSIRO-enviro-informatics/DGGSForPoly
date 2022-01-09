@@ -12,7 +12,10 @@ def area_of_cells(rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolu
     '''
     if (cells==None): #can be empty (in this case 0 area) so equate with None
         raise Exception("no cell list or rdggs object provided.") 
-        
+    
+    if not isinstance(cells, list):
+        raise Exception(f"Please Provide a list. Recieved {type(cells)}") 
+
     if not cells: #it is empty cell list.
         return 0
     

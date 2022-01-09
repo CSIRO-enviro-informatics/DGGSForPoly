@@ -27,7 +27,7 @@ def add_finest_subcells(cell_str, cells_in_poly, max_res, rdggs):
                 cells.append(str(subcell))
     return
 
-
+# ------ Not currently used in poly_fill ------
 def raytrace_centroid_in_poly(centroid=None, poly=None):
     '''
     Wrapper for raytrace_centroid_in_ShapelyPolygon to handle case of Multipolygon.
@@ -52,6 +52,8 @@ def raytrace_centroid_in_poly(centroid=None, poly=None):
     raise Exception('shouldve returned')
     return None
 
+
+# ------ Not currently used in poly_fill ------
 def raytrace_centroid_in_ShapelyPolygon(centroid=None, poly=None):
     '''
     returns true if a cells centroid is within the Polygon, else False.
@@ -68,7 +70,8 @@ def raytrace_centroid_in_ShapelyPolygon(centroid=None, poly=None):
     #haven;'t returned yet, therefor inside the exterior and not in any wholes.
     return True
 
-# Below function is from GeoScience Australia who got it from stack overflow as shown.
+# ------ Not currently used in poly_fill ------
+# Below function is from stack overflow as shown - also used by Geoscience Australia
 # line intersection function
 #@jit(nopython=True)
 def ray_tracing(x,y,poly):

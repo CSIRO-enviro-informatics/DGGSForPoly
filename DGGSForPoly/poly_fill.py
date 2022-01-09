@@ -53,7 +53,8 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
     rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1)
     fill_strategies=['poly_fully_covered_by_cells', 'centroids_in_poly', 'cells_fully_contained_in_poly' ]
     if fill_strategy not in fill_strategies:
-        raise Exception(f"Incorrest fill_strategy given. Must be one of {*fill_strategies,}")
+        print(fill_strategy)
+        raise Exception(f"Incorrest fill_strategy given: {fill_strategy}. Must be one of {*fill_strategies,}")
     if not (max_res and polygon):
         raise Exception("No resolution or rdggs or polygon recieved")   
     dggs_cells = []
@@ -102,7 +103,7 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
     return dggs_cells
 
 
-def poly_fill_from_geojson(geojson_obj=None, max_res=10, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1), hybrid=True, return_objects=False, fill_strategy='poly-fully-covered-by-cells'):
+def poly_fill_from_geojson(geojson_obj=None, max_res=10, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1), hybrid=True, return_objects=False, fill_strategy='poly_fully_covered_by_cells'):
     '''
     Recieves a geojson obj/dict containing multiple features, and returns a list of lists containing dggs cells 
     for each features' geometry in order they appear in the feature collection.
@@ -114,6 +115,7 @@ def poly_fill_from_geojson(geojson_obj=None, max_res=10, rdggs=RHEALPixDGGS(elli
     list_of_lists_of_dggs_cells=[None]*len(geojson_obj['features'])
 
     for i,feature in enumerate(geojson_obj['features']):
+        print(fill_strategy)
         list_of_lists_of_dggs_cells[i]=poly_fill(geojson=feature['geometry'], max_res=max_res, rdggs=rdggs, hybrid=hybrid, 
                                                 return_objects=return_objects, fill_strategy=fill_strategy) 
  
