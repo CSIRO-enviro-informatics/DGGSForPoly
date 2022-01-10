@@ -4,7 +4,7 @@ from DGGSForPoly.cell_area import area_of_cells
 from math import isclose
 
 # Testing from entire geojson 
-def test_poly_fill_from_geojson_ex1():
+def test_poly_fill_from_geojson_ex1(): # hybrid non sqaure (black mountain in canberra)
     geojson_obj = get_static_test_data_Black_Mountain()
     list_of_lists_of_dggs_cells = poly_fill.poly_fill_from_geojson(geojson_obj=geojson_obj, max_res=10, fill_strategy='poly_fully_covered_by_cells')
 

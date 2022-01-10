@@ -19,6 +19,7 @@ def add_finest_subcells(cell_str, cells_in_poly, max_res, rdggs):
     '''
     cells = [cell_str]
     while(cells):
+
         cell = rdggs.cell(suid = str_to_list(cells.pop(-1)))
         for subcell in cell.subcells():
             if len(str(subcell))-1>= max_res:
@@ -26,3 +27,8 @@ def add_finest_subcells(cell_str, cells_in_poly, max_res, rdggs):
             else: #go deeper
                 cells.append(str(subcell))
     return
+
+
+#def str_to_list(mystr):   
+#    #converts string cell id to list (keeping the letter a str). This is what the cell object constructor requires.
+#    return [mystr[0]] + [int(i) for i in mystr[1:]]
