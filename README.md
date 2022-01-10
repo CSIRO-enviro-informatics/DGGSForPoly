@@ -24,7 +24,6 @@ $ python3 -m venv .venv
 $ source .venv/bin/activate
 # or on Windows: source .venv/Scripts/activate
 $ python setup.py install
-$ ~~ pip install -r requirements.txt ~~
 ```
 
 Include testing
