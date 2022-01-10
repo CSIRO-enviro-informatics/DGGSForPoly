@@ -1,7 +1,10 @@
 from DGGSForPoly import poly_fill
-from get_data import get_static_test_data_square, get_static_test_data_Black_Mountain, get_polly_fill_from_geojson_answer_ex2
+from get_data import get_static_test_data_square, get_static_test_data_Black_Mountain, get_poly_fill_ex2_non_hybrid_answer
 from DGGSForPoly.cell_area import area_of_cells
 from math import isclose
+import 
+
+
 '''
 def func(x):
     return x + 1
