@@ -18,9 +18,9 @@ setuptools.setup(
        
     packages=setuptools.find_packages(),
 
-    install_requires = [ # note additional (repo) installs required in requirements.txt to run code.
+    install_requires = [ 
         'Shapely',
-        'geojson'
+        'rhealpixdggs'
     ],
         
 )

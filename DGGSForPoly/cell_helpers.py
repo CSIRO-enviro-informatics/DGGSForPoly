@@ -1,5 +1,5 @@
-from auspixdggs.auspixengine.dggs import Cell, RHEALPixDGGS
-from auspixdggs.auspixengine.ellipsoids import WGS84_ELLIPSOID
+from rhealpixdggs.dggs import Cell, RHEALPixDGGS
+from rhealpixdggs.ellipsoids import WGS84_ELLIPSOID
 from shapely.geometry import Polygon, MultiPolygon
 from math import isclose
 

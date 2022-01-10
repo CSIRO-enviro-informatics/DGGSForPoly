@@ -1,5 +1,5 @@
-from auspixdggs.auspixengine.dggs import Cell, RHEALPixDGGS
-from auspixdggs.auspixengine.ellipsoids import WGS84_ELLIPSOID
+from rhealpixdggs.dggs import Cell, RHEALPixDGGS
+from rhealpixdggs.ellipsoids import WGS84_ELLIPSOID
 
 def area_of_cells(rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1), cells=None):
     '''

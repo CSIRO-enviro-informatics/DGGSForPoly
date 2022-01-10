@@ -1,5 +1,5 @@
-from auspixdggs.auspixengine.dggs import Cell, RHEALPixDGGS
-from auspixdggs.auspixengine.ellipsoids import WGS84_ELLIPSOID
+from rhealpixdggs.dggs import Cell, RHEALPixDGGS
+from rhealpixdggs.ellipsoids import WGS84_ELLIPSOID
 from DGGSForPoly.poly_fill_helpers import add_finest_subcells #, raytrace_centroid_in_poly
 from DGGSForPoly.cell_helpers import  get_cell_poly, str_to_list
 from shapely.geometry import shape, Point
