@@ -1,4 +1,5 @@
 from shapely.geometry import Polygon, MultiPolygon
+from DGGSForPoly.cell_helpers import str_to_list
 
 def add_finest_subcells(cell_str, cells_in_poly, max_res, rdggs): 
     '''
