@@ -30,9 +30,9 @@ jobs:
         run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
-      - name: build
-        run: |
-          python setup.py install
+      #- name: build
+      #  run: |
+      #    python setup.py install
       - name: test
         run: |
           pip install -U pytest
