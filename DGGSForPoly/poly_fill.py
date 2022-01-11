@@ -67,9 +67,9 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
         at_max_res = (len(cell_str)-1 >= max_res)     
         if (not at_max_res) or fill_strategy=='cells_fully_contained_in_poly':
             if polygon.contains(cell_poly): 
-                if (hybrid or at_max_res):  #if hybrid or at smallest resoluition, append.
+                if (hybrid or at_max_res):  #if hybrid or at smallest resoluition, append. (dont want to add the finest cells of the already max res cell.)
                     dggs_cells.append(cell_str)
-                else:  #Not hybrid and fully contained parent cell, -> apend children which will be contained if the parent is.
+                else:  #Not hybrid and fully contained *parent* (not max res) cell, -> apend children which will be contained if the parent is.
                     add_finest_subcells(cell_str, dggs_cells, max_res, rdggs) 
                 continue          
         if(fill_strategy=='cells_fully_contained_in_poly'):
@@ -86,7 +86,7 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
                 if polygon.contains(Point(centroid[0], centroid[1])): #use ray tracing here.
                 #if raytrace_centroid_in_poly(centroid=centroid, poly=polygon): #other if statement top swap in for ray tracing fill_strategy (slower - yet to investigate why)
                     dggs_cells.append(cell_str)                   
-        else: #fill_strategy == overlaps (and this cell isn't fully contained)
+        else: #fill_strategy == poly_fully_covered_by_cells (and this cell isn't fully contained)
             if (len(cell_str)-1 < max_res): #not at max res, generate cchildren to investigate
                 if(cell_poly.intersects(polygon)):        
                     for child in cell.subcells(): stack.append(str(child))
