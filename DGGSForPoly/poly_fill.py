@@ -6,43 +6,33 @@ from shapely.geometry import shape, Point
 
 def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1), max_res=None, hybrid=True, return_objects=False, fill_strategy='poly_fully_covered_by_cells'):
     '''
-    Returns a set of rHEALPIX dggs cells that represent the given polygon according to a desired fill_strategy. 
-    The input polygon can be a shapely object or define within 'geojson' parameter
+    Returns a set of rHEALPIX dggs cells that represent the given shapely polygon or geojson style dict. 
+    
     
     Parameters
     ----------
     
-    geojson: dict or innards of geojson object  containing a single Polygon (or multipolygon or line) to find dggs for.
+    geojson: dict or innards of geojson object containing a single Polygon (or multipolygon or line) to find dggs for.
         Format:
             {
                 'type': 'Polygon',
                 'coordinates': [outer, hole1, hole2, ...],
             }
-        example for getting geojson dict from geojson file:
-            f = open("../spatial_data/ACT_SA1_Black_Mountain.geojson"); 
-            geojson_obj = geojson.loads(f.read())
-            geojson = gj_obj['features'][poly_num]['geometry']
-            #where poly_num is the poly_num'th shape defined in the geojson file. 
-            (See function "polyfill_from_geojson" for geojsons with many geometries.)
             
-    polygon: shapely shape to find a set of dggs cells to represent it
+    polygon: shapely (multi)Polygon or (Multi)Point or (Multi)Line to find a set of dggs cells to represent it. For non Polygons, use fill+strategy=poly_fully_covered_by_cells as these do not have areas for complete cell (or centroid) containment. 
         
-    rdggs: The rHEALPix DGGS on a given ellipsoid. Defaults to WGS84_ELLIPSOID, with max res of 15.
+    rdggs: The rHEALPix DGGS on a given ellipsoid. Defaults to WGS84_ELLIPSOID, with max res of 15. 
     
     max_res: int - desired finest resolution of outputted cells which describe the polygon.
     
-    hybrid: bool - if True use hybrid representation of polygon i.e. mix resolutions to save some space. 
-    if false, cells returned are all of res 'max_res'
+    hybrid: if True use hybrid/hierarchical cell representation of polygon. If false, cells returned are all of res 'max_res'
     
-    return_objects - if True, return auspixdggs cell objects, else return strings of the cells suids.
+    return_objects - Default True. if True, return auspixdggs cell objects, else return strings of the cells suids.
     
-    fill_strategy: string specifying the desired fill strategy. Can be one of:
+    fill_strategy: string specifying the desired fill strategy. Can be one of
         "centroids_in_poly" - includes cells if their centroids lie witihn the polygon
         "cells_fully_contained-in_poly" - includes cells that are entirely within the polygon (always under estimates area)
-        "poly_fully-covered_by_cells" - includes cells that are fully or partially within the polygon. (always over estimates area)
-    
-  
-    gj_obj = geojson.loads(f.read()) and f = open("../spatial_data/ACT_SA1_Black_Mountain.geojson"); 
+        "poly_fully_covered_by_cells" - includes cells that are fully or partially within the polygon. (always over estimates area)
     
     '''  
     

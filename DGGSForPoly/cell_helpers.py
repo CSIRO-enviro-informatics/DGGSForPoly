@@ -6,9 +6,11 @@ from math import isclose
 def get_cell_poly(cell):
     '''
     Returns the shapely polygon of a rhealpix cell object by first finding the vertices using cell.vertices().
- 
-    Mostly, this function returns cell.vertices(), but sometimes fixes the results up for shapely to interpret better. 
+    
+    Mostly, returns Polygon(cell.vertices()), but sometimes fixes the result from cell.vertices() for shapely to interpret better. 
+    
     For example to interpret a polar cap cell as an area and not a line along constant latitude. 
+
     Additionally, if a cell boundary crosses or touches the +-180 longitude, the function splits the cell and returns a multipolygon.
     This ensures shapely defines the area of the polygon as not going the long way around the ellipsoid which would be incorrect. 
     
@@ -17,6 +19,8 @@ def get_cell_poly(cell):
     cell: a rhealpix cell object to find the shapely polygon for using EPSG:4326 CRS.
     
     '''
+    # this function could be split into a fix_vertices() function. then a get_cell_poly_from_vertices() so other librarys that don't 
+    # use shapely can use the fix_vertices() method. I know AusPIX doesn't work well in tasmania (S Region)
     cell_shape = cell.ellipsoidal_shape()   
     vertices = cell.vertices(plane=False, trim_dart=True)
     if cell_shape == 'cap': #make polygon out of line of latitude so shapely iterprets the cap as a poly and not a line

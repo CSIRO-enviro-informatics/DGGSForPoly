@@ -1,12 +1,12 @@
 from ipyleaflet import Map, GeoData, basemaps
-import geopandas as gp
 from rhealpixdggs.dggs import Cell, RHEALPixDGGS
 from rhealpixdggs.ellipsoids import WGS84_ELLIPSOID
 from DGGSForPoly.cell_helpers import get_cell_poly, str_to_list
+import geopandas as gp
 
 def cell_plot(cell_list=None, poly=None, zoom=10, rdggs=None):
     '''
-    Plots a shapely object (Polygon) and/or a dggs cell list, whatever is given, over an basic street map. 
+    Plots a shapely object (Polygon) and/or a dggs cell list. 
     
     Parameters
     ---------
@@ -14,7 +14,7 @@ def cell_plot(cell_list=None, poly=None, zoom=10, rdggs=None):
     cell_list: a list of rhealpix dggs cells as strings or rhealpix cell objects to be plotted
     poly: shapely Polygon (or multipolygon) to be plotted
     zoom: Starting zoom level of map
-    rdggs: The rHEALPix DGGS on a given ellipsoid. Defaults to WGS84_ELLIPSOID, with max res of 15. 
+    rdggs: The rHEALPix DGGS on a given ellipsoid. Defaults to WGS84_ELLIPSOID. Only needed if plotting cells.
     
     '''
     cell_list_to_plot=cell_list.copy()
