@@ -8,7 +8,6 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
     '''
     Returns a set of rHEALPIX dggs cells that represent the given shapely polygon or geojson style dict. 
     
-    
     Parameters
     ----------
     
