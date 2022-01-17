@@ -1,3 +1,4 @@
-ipyleaflet
 geopandas
 pandas
+ipyleaflet
+geojson
