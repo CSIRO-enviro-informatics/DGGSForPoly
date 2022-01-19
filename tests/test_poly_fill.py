@@ -34,4 +34,9 @@ def test_poly_fill_ex2_non_hybrid(): # black mouintain (first poly) non-hybrid.
     cells = poly_fill.poly_fill(geojson=geojson_data, max_res=10, hybrid=False)
     cells.sort()
     assert cells == get_poly_fill_ex2_non_hybrid_answer()
-    
+
+
+def test_coords_to_cell():
+    coords = (145.002042, -37.805825)
+    cell_list = poly_fill.coords_to_cell(coords, res=15)
+    assert cell_list == ['R784771144887123'] 

@@ -74,3 +74,6 @@ def get_cell_poly(cell):
 def str_to_list(mystr):   
     #converts string cell id to list (keeping the letter a str). This is what the cell object constructor requires.
     return [mystr[0]] + [int(i) for i in mystr[1:]]
+
+
+ 

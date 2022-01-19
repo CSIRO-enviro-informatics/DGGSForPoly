@@ -4,6 +4,11 @@ from DGGSForPoly.poly_fill_helpers import add_finest_subcells
 from DGGSForPoly.cell_helpers import  get_cell_poly, str_to_list
 from shapely.geometry import shape, Point
 
+def coords_to_cell(coords, res=15):
+    # recieves (long, lat) tuple and finds the resolution 'res' cell that represents this point
+    # coords are in epsg4326 - return is list of length 1 containg string of cell suid. 
+    return poly_fill(polygon=Point(coords), max_res=res, fill_strategy='poly_fully_covered_by_cells')
+
 def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1), max_res=None, hybrid=True, return_objects=False, fill_strategy='poly_fully_covered_by_cells'):
     '''
     Returns a set of rHEALPIX dggs cells that represent the given shapely polygon or geojson style dict. 
