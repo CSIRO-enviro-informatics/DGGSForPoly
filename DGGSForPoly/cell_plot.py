@@ -17,7 +17,8 @@ def cell_plot(cell_list=None, poly=None, zoom=10, rdggs=None):
     rdggs: The rHEALPix DGGS on a given ellipsoid. Defaults to WGS84_ELLIPSOID. Only needed if plotting cells.
     
     '''
-    cell_list_to_plot=cell_list.copy()
+
+    if cell_list: cell_list_to_plot=cell_list.copy() 
       
     if poly: #plot the polygons too.
         poly_df = gp.GeoDataFrame(geometry=gp.GeoSeries([poly]))
