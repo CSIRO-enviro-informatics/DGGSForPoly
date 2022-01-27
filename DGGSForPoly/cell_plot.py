@@ -26,9 +26,10 @@ def cell_plot(cell_list=None, poly=None, zoom=10, rdggs=None):
                        style={'color': 'red', 'opacity':6, 'weight':2.5,'fillOpacity':0.1},
                        name = 'Polygon')
             
-    if cell_list_to_plot: #only if not empty
-        if not rdggs: #none given, need one for cells.
-            rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1)
+    if cell_list: #only if doing cells.
+        if cell_list_to_plot: #only if not empty
+            if not rdggs: #none given, need one for cells.
+                rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1)
 
         if isinstance(cell_list_to_plot[0], str): #recieved list of cell strings... convert to cell objects
             for i in range(len(cell_list_to_plot)):
