@@ -27,9 +27,8 @@ def cell_plot(cell_list=None, poly=None, zoom=10, rdggs=None):
                        name = 'Polygon')
             
     if cell_list: #only if doing cells.
-        if cell_list_to_plot: #only if not empty
-            if not rdggs: #none given, need one for cells.
-                rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1)
+        if not rdggs: #none given, need one for cells.
+            rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1)
 
         if isinstance(cell_list_to_plot[0], str): #recieved list of cell strings... convert to cell objects
             for i in range(len(cell_list_to_plot)):
@@ -54,8 +53,7 @@ def cell_plot(cell_list=None, poly=None, zoom=10, rdggs=None):
     
     m = Map(zoom=zoom, center=center) 
     if poly: m.add_layer(poly_layer)
-    if cell_list: #if given a cell_list
-        if cell_list_to_plot: m.add_layer(cell_layer)
+    if cell_list: m.add_layer(cell_layer) #if given a cell_list 
     m.layout.height="550px"
     display(m)
     return
