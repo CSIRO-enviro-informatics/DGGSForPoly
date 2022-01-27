@@ -77,7 +77,8 @@ def str_to_list(mystr):
 
 
 def get_children(cell_str):
-    return Cell(suid=str_to_list(cell_str)).subcells()
+    children_generator = Cell(suid=str_to_list(cell_str)).subcells()
+    return [str(child) for child in children_generator]
     
 
 
