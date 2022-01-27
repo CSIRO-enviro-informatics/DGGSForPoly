@@ -76,10 +76,13 @@ def str_to_list(mystr):
 
 
 
-def get_children(cell_str):
-    children_generator = Cell(suid=str_to_list(cell_str)).subcells()
-    return [str(child) for child in children_generator]
-    
+def get_subcells(cell_str, res=None):
+    if not res: # return the children (first subcells down)
+        children_generator = Cell(suid=str_to_list(cell_str)).subcells()
+        return [str(child) for child in children_generator]
+    # else , given a resolution to generate cells for!!
+    subcells_generator = Cell(suid=str_to_list(cell_str)).subcells(resolution=res)
+    return [str(subcell) for subcell in subcells_generator]
 
 
 # abort writing this - can use the geoscience one in a for loop.
