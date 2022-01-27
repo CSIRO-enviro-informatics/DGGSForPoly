@@ -69,11 +69,33 @@ def get_cell_poly(cell):
             return Polygon(vertices)
     else:
         raise Exception('error2')         
-        return None
     
 def str_to_list(mystr):   
     #converts string cell id to list (keeping the letter a str). This is what the cell object constructor requires.
     return [mystr[0]] + [int(i) for i in mystr[1:]]
 
 
- 
+
+def get_children(cell_str):
+    return Cell(suid=str_to_list(cell_str)).subcells()
+    
+
+
+# abort writing this - can use the geoscience one in a for loop.
+'''
+def generate_all_subcells_until_max_res(parent_cell=None, max_res=None):
+    # generates all subcell suid's into a list for every resolution finer than the parent cells until max_res
+    # e.g. if parent cell is R (which is resolution 0) and max_res == 2 then will return the following list.
+    # ['R1','R2',...,'R9','R11', 'R12', ..., 'R99'] # that is, all resolution 1 and 2 cells contained in the resolution 0 cell, 'R'.
+    if not parent_cell:
+        raise Exception("Please provide parent cell string")
+    if not max_res:
+        raise Exception("Please provide max resolution to generate subcells until")
+    parent_cell = Cell(suid=str_to_list(parent_cell))
+    
+
+    # cell = rdggs.cell(suid=str_to_list(cell_str)) 
+
+    children = []
+    children.append(parent_cell.subcells())
+'''
