@@ -54,7 +54,8 @@ def cell_plot(cell_list=None, poly=None, zoom=10, rdggs=None):
     
     m = Map(zoom=zoom, center=center) 
     if poly: m.add_layer(poly_layer)
-    if cell_list_to_plot: m.add_layer(cell_layer)
+    if cell_list: #if given a cell_list
+        if cell_list_to_plot: m.add_layer(cell_layer)
     m.layout.height="550px"
     display(m)
     return
