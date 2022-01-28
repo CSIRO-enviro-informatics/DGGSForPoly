@@ -4,10 +4,6 @@ from DGGSForPoly.poly_fill_helpers import add_finest_subcells
 from DGGSForPoly.cell_helpers import  get_cell_poly, str_to_list
 from shapely.geometry import shape, Point
 
-def coords_to_cell(coords, res=15):
-    # recieves (long, lat) tuple and finds the resolution 'res' cell that represents this point
-    # coords are in epsg4326 - return is list of length 1 containg string of cell suid. 
-    return poly_fill(polygon=Point(coords), max_res=res, fill_strategy='poly_fully_covered_by_cells')
 
 def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1), max_res=None, hybrid=True, return_objects=False, fill_strategy='poly_fully_covered_by_cells'):
     '''
@@ -64,7 +60,7 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
                 if (hybrid or at_max_res):  #if hybrid or at smallest resoluition, append. (dont want to add the finest cells of the already max res cell.)
                     dggs_cells.append(cell_str)
                 else:  #Not hybrid and fully contained *parent* (not max res) cell, -> apend children which will be contained if the parent is.
-                    add_finest_subcells(cell_str, dggs_cells, max_res, rdggs) 
+                    add_finest_subcells(cell_str, dggs_cells, max_res, rdggs) # new sub_cells function can replace add_finest_subcells"
                 continue          
         if(fill_strategy=='cells_fully_contained_in_poly'):
                 #fill_strategy is contained, but this cell is not fully contained (otherwise would have appened above)
@@ -113,3 +109,9 @@ def poly_fill_from_geojson(geojson_obj=None, max_res=10, rdggs=RHEALPixDGGS(elli
         list_of_lists_of_dggs_cells[i]=poly_fill(geojson=feature['geometry'], max_res=max_res, rdggs=rdggs, hybrid=hybrid, 
                                                 return_objects=return_objects, fill_strategy=fill_strategy) 
     return list_of_lists_of_dggs_cells
+
+
+def coords_to_cell(coords, res=15):
+    # recieves (long, lat) tuple and finds the resolution 'res' cell that represents this point
+    # coords are in epsg4326 - return is list of length 1 containg string of cell suid. 
+    return poly_fill(polygon=Point(coords), max_res=res, fill_strategy='poly_fully_covered_by_cells')

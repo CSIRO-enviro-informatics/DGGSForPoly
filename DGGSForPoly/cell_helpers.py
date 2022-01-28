@@ -76,7 +76,7 @@ def str_to_list(mystr):
 
 
 
-def get_subcells(cell_str, res=None):
+def get_subcells(cell_str, res=None): # USE list.extend(get_subcells(cell, res=X)). dont append because this returns a list. you wuld be adding an entire list as one element. but doing .extend will run the generator.
     if not res: # return the children (first subcells down)
         children_generator = Cell(suid=str_to_list(cell_str)).subcells()
         return [str(child) for child in children_generator]
@@ -103,3 +103,31 @@ def generate_all_subcells_until_max_res(parent_cell=None, max_res=None):
     children = []
     children.append(parent_cell.subcells())
 '''
+
+def hybrid_to_res(cell_list, target_res=None):
+    '''
+    Recieves a hybridised DGGS cell lists and compute the equilvalent spatial geometry using cells of target_res.
+    Currently only genereates the constant res representation of a cell list for cell_lists whose min res
+    is equal to or more coarse than the target res. I.e., target_res must be equal to or finer than the finest used in cell_list.
+    
+    '''
+    if not target_res:
+        raise Exception("Please provide a target resolution")
+
+    cell_list.sort(key=len, reverse=True)
+    input_res = len(cell_list[0])-1
+    
+    if target_res<input_res:
+        raise Exception("target_res must be equal to or finer than the finest used in cell_list. Input res = {0} - target_res = {1}".format(input_res,target_res))
+        
+    # ok
+    cells2 = [] # cell list for the non-hybrid representation.
+    
+    for cell in cell_list:
+        if len(cell)-1==target_res:
+            cells2.append(cell)
+        else:
+             cells2.extend(get_subcells(cell, res=target_res))
+                
+    return cells2
+
