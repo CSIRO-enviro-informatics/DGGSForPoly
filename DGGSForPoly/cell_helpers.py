@@ -131,6 +131,6 @@ def hybrid_to_res(cell_list, target_res=None):
             if len(cell)-1<target_res:
              cells2.extend(get_subcells(cell, res=target_res))
             else:
-                cells2.append(cell[0:target_res])
+                cells2.append(cell[0:target_res+1])
     return cells2 # need to remove duplicates if u dont want duplicate coarser cells!!!
 
