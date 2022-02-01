@@ -117,8 +117,8 @@ def hybrid_to_res(cell_list, target_res=None):
     cell_list.sort(key=len, reverse=True)
     input_res = len(cell_list[0])-1
     
-    if target_res<input_res:
-        raise Exception("target_res must be equal to or finer than the finest used in cell_list. Input res = {0} - target_res = {1}".format(input_res,target_res))
+    #if target_res<input_res:
+    #    raise Exception("target_res must be equal to or finer than the finest used in cell_list. Input res = {0} - target_res = {1}".format(input_res,target_res))
         
     # ok
     cells2 = [] # cell list for the non-hybrid representation.
@@ -127,7 +127,9 @@ def hybrid_to_res(cell_list, target_res=None):
         if len(cell)-1==target_res:
             cells2.append(cell)
         else:
+            if len(cell)-1<target_res:
              cells2.extend(get_subcells(cell, res=target_res))
-                
+            else:
+                cells2.appen(cell[0:target_res])
     return cells2
 
