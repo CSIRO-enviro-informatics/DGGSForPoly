@@ -104,14 +104,15 @@ def generate_all_subcells_until_max_res(parent_cell=None, max_res=None):
     children.append(parent_cell.subcells())
 '''
 
-def hybrid_to_res(cell_list, target_res=None):
+def hybrid_to_res(cell_list, target_res=None): #converts between resolutions. can go to a coarser res but doesnt remove duplicates. convert to set then back if u want to remove duplicates.
     '''
     Recieves a hybridised DGGS cell lists and compute the equilvalent spatial geometry using cells of target_res.
     Currently only genereates the constant res representation of a cell list for cell_lists whose min res
     is equal to or more coarse than the target res. I.e., target_res must be equal to or finer than the finest used in cell_list.
     # need to remove duplicates if u dont want duplicate coarser cells!!!
     '''
-
+    if not isinstance(cell_list, list):
+        raise Exception("cannot work on non list - recieved {0}".format(type(cell_list)))
     if not target_res:
         raise Exception("Please provide a target resolution")
 
