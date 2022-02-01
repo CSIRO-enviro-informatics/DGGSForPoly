@@ -109,13 +109,14 @@ def hybrid_to_res(cell_list, target_res=None):
     Recieves a hybridised DGGS cell lists and compute the equilvalent spatial geometry using cells of target_res.
     Currently only genereates the constant res representation of a cell list for cell_lists whose min res
     is equal to or more coarse than the target res. I.e., target_res must be equal to or finer than the finest used in cell_list.
-    
+    # need to remove duplicates if u dont want duplicate coarser cells!!!
     '''
+
     if not target_res:
         raise Exception("Please provide a target resolution")
 
-    cell_list.sort(key=len, reverse=True)
-    input_res = len(cell_list[0])-1
+    #cell_list.sort(key=len, reverse=True)
+    #input_res = len(cell_list[0])-1
     
     #if target_res<input_res:
     #    raise Exception("target_res must be equal to or finer than the finest used in cell_list. Input res = {0} - target_res = {1}".format(input_res,target_res))
@@ -130,6 +131,6 @@ def hybrid_to_res(cell_list, target_res=None):
             if len(cell)-1<target_res:
              cells2.extend(get_subcells(cell, res=target_res))
             else:
-                cells2.appen(cell[0:target_res])
-    return cells2
+                cells2.append(cell[0:target_res])
+    return cells2 # need to remove duplicates if u dont want duplicate coarser cells!!!
 
