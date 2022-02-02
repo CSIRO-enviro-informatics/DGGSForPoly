@@ -1,7 +1,7 @@
 from rhealpixdggs.dggs import Cell, RHEALPixDGGS
 from rhealpixdggs.ellipsoids import WGS84_ELLIPSOID
 from DGGSForPoly.poly_fill_helpers import add_finest_subcells
-from DGGSForPoly.cell_helpers import  get_cell_poly, str_to_list
+from DGGSForPoly.cell_helpers import  get_cell_poly, str_to_list, get_subcells
 from shapely.geometry import shape, Point
 
 
@@ -60,7 +60,10 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
                 if (hybrid or at_max_res):  #if hybrid or at smallest resoluition, append. (dont want to add the finest cells of the already max res cell.)
                     dggs_cells.append(cell_str)
                 else:  #Not hybrid and fully contained *parent* (not max res) cell, -> apend children which will be contained if the parent is.
-                    add_finest_subcells(cell_str, dggs_cells, max_res, rdggs) # new sub_cells function can replace add_finest_subcells"
+                    #add_finest_subcells(cell_str, dggs_cells, max_res, rdggs) # new sub_cells function can replace add_finest_subcells"
+                    dggs_cells.extend(get_subcells(cell_str, res=max_res))
+
+
                 continue          
         if(fill_strategy=='cells_fully_contained_in_poly'):
                 #fill_strategy is contained, but this cell is not fully contained (otherwise would have appened above)
