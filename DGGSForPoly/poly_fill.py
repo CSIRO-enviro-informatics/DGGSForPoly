@@ -40,21 +40,23 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
         pass
     else: #recieved geojson, make the shapely polygon
         polygon=shape(geojson)
+
     rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1)
+
     fill_strategies=['poly_fully_covered_by_cells', 'centroids_in_poly', 'cells_fully_contained_in_poly' ]
     if fill_strategy not in fill_strategies:
-        print(fill_strategy)
         raise Exception(f"Incorrest fill_strategy given: {fill_strategy}. Must be one of {*fill_strategies,}")
     if not (max_res and polygon):
-        raise Exception("No resolution or rdggs or polygon recieved")   
-    dggs_cells = []
-    
+        raise Exception("No resolution or polygon recieved")   
+
+    dggs_cells = [] 
     stack = rdggs.cells0.copy()
     while(stack): 
         cell_str = stack.pop(-1)
         cell = rdggs.cell(suid=str_to_list(cell_str)) 
         cell_poly = get_cell_poly(cell) 
-        at_max_res = (len(cell_str)-1 >= max_res)     
+        at_max_res = (len(cell_str)-1 >= max_res)   
+
         if (not at_max_res) or fill_strategy=='cells_fully_contained_in_poly':
             if polygon.contains(cell_poly): 
                 if (hybrid or at_max_res):  #if hybrid or at smallest resoluition, append. (dont want to add the finest cells of the already max res cell.)
@@ -62,14 +64,14 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
                 else:  #Not hybrid and fully contained *parent* (not max res) cell, -> apend children which will be contained if the parent is.
                     #add_finest_subcells(cell_str, dggs_cells, max_res, rdggs) # new sub_cells function can replace add_finest_subcells"
                     dggs_cells.extend(get_subcells(cell_str, res=max_res))
+                continue
 
-
-                continue          
         if(fill_strategy=='cells_fully_contained_in_poly'):
                 #fill_strategy is contained, but this cell is not fully contained (otherwise would have appened above)
                 if(len(cell_str)-1<max_res): 
                     if(cell_poly.intersects(polygon)):
-                         for child in cell.subcells(): stack.append(str(child))                                         
+                         for child in cell.subcells(): stack.append(str(child))  
+
         elif(fill_strategy=='centroids_in_poly'):
             if (len(cell_str)-1 < max_res): #if not at max res and it overlaps, investigate children
                 if(cell_poly.intersects(polygon)):  
@@ -78,7 +80,8 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
                 centroid = cell.nucleus(plane=False) 
                 if polygon.contains(Point(centroid[0], centroid[1])): #use ray tracing here.
                 #if raytrace_centroid_in_poly(centroid=centroid, poly=polygon): #other if statement top swap in for ray tracing fill_strategy (slower - yet to investigate why)
-                    dggs_cells.append(cell_str)                   
+                    dggs_cells.append(cell_str)  
+
         else: #fill_strategy == poly_fully_covered_by_cells (and this cell isn't fully contained)
             if (len(cell_str)-1 < max_res): #not at max res, generate cchildren to investigate
                 if(cell_poly.intersects(polygon)):        
@@ -93,6 +96,7 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
     if return_objects: #you want rdggs cell objects and not strings.
         for i in range(len(dggs_cells)): #could use enumarate i,v here. wou;d changing v change whats in the list or is a copy?
                 dggs_cells[i] = rdggs.cell(suid=str_to_list(dggs_cells[i]))  
+    
     return dggs_cells
 
 
