@@ -26,7 +26,7 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
     
     hybrid: if True use hybrid/hierarchical cell representation of polygon. If false, cells returned are all of res 'max_res'
     
-    return_objects - Default True. if True, return auspixdggs cell objects, else return strings of the cells suids.
+    return_objects - Default True. if True, return rhealpix cell objects, else return strings of the cells suids.
     
     fill_strategy: string specifying the desired fill strategy. Can be one of
         "centroids_in_poly" - includes cells if their centroids lie witihn the polygon
@@ -67,12 +67,12 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
 
         if(fill_strategy=='cells_fully_contained_in_poly'):
                 #fill_strategy is contained, but this cell is not fully contained (otherwise would have appened above)
-                if(len(cell_str)-1<max_res): 
+                if not at_max_res: 
                     if(cell_poly.intersects(polygon)):
                          for child in cell.subcells(): stack.append(str(child))  
 
         elif(fill_strategy=='centroids_in_poly'):
-            if (len(cell_str)-1 < max_res): #if not at max res and it overlaps, investigate children
+            if not at_max_res: #if not at max res and it overlaps, investigate children
                 if(cell_poly.intersects(polygon)):  
                     for child in cell.subcells(): stack.append(str(child))               
             else: #Cell is at max res, add if centroid is contained.
@@ -82,7 +82,7 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
                     dggs_cells.append(cell_str)  
 
         else: #fill_strategy == poly_fully_covered_by_cells (and this cell isn't fully contained)
-            if (len(cell_str)-1 < max_res): #not at max res, generate cchildren to investigate
+            if not at_max_res: #not at max res, generate cchildren to investigate
                 if(cell_poly.intersects(polygon)):        
                     for child in cell.subcells(): stack.append(str(child))
             elif(cell_poly.intersects(polygon)): #cell is at make res, add if overlapping.
@@ -108,7 +108,7 @@ def poly_fill_from_geojson(geojson_obj=None, max_res=10, rdggs=RHEALPixDGGS(elli
         geojson_obj = geojson.loads(f.read()) OR geojson_obj = json.loads(f.read()). 
         The latter will be an actual python dict, functionally the same thing to my experience.
     '''
-    #list_of_lists_of_dggs_cells=[None]*len(geojson_obj['features']) # dont need to initalise, just append.
+    #list_of_lists_of_dggs_cells=[None]*len(geojson_obj['features']) # dont need to initalise to None, just append.
     list_of_lists_of_dggs_cells=[]
     for i,feature in enumerate(geojson_obj['features']):
         #list_of_lists_of_dggs_cells[i]=poly_fill(geojson=feature['geometry'], max_res=max_res, rdggs=rdggs, hybrid=hybrid, 
