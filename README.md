@@ -5,6 +5,8 @@ Contains a function that returns a set of rHEALPIX DGGS cells that describe the 
 
 The function is built on top of the rHealPIX DGGS Engine (https://github.com/manaakiwhenua/rhealpixdggs-py) and makes use of Shapely's Binary Predicates.
 
+See the usage notebook for examples.
+
 #### Fill Strategies
 poly_fill() function has 3 fill_strategies:   
     1) poly_fully_covered_by_cells -  returns a set of cells that completly encapsulating the polygon -> over estimates area   
