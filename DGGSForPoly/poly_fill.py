@@ -51,7 +51,7 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
     dggs_cells = [] 
     stack = rdggs.cells0.copy()
     while(stack): 
-        cell_str = stack.pop(-1)
+        cell_str = stack.pop(-1) # pop at end for O(1) and less peak memory usage (Depth First Search)
         cell = rdggs.cell(suid=str_to_list(cell_str)) 
         cell_poly = get_cell_poly(cell) 
         at_max_res = (len(cell_str)-1 >= max_res)   
@@ -90,7 +90,9 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
     
     dggs_cells = list(set(dggs_cells)) #removes duplicates
     
-    #condense? ( In hybrid mode, sometimes a entire collection of children are included after further checking, these could be compressed to the parent which can then again now be compressed into grandparents and so on)
+    #condense? ( In hybrid mode, sometimes a entire collection of children are included after further checking, 
+    # these could be compressed to the parent which can then again now be compressed into grandparents and so on)
+    # or perhaps better to somehow generate the list condensed in the first place.
     
     if return_objects: #you want rdggs cell objects and not strings.
         for i in range(len(dggs_cells)): #could use enumarate i,v here. wou;d changing v change whats in the list or is a copy?
@@ -102,7 +104,7 @@ def poly_fill(geojson=None, polygon=None, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELL
 def poly_fill_from_geojson(geojson_obj=None, max_res=10, rdggs=RHEALPixDGGS(ellipsoid=WGS84_ELLIPSOID, max_areal_resolution=1), hybrid=True, return_objects=False, fill_strategy='poly_fully_covered_by_cells'):
     '''
     Recieves a geojson obj/dict containing multiple features, and returns a list of lists containing dggs cells 
-    for each features' geometry in order they appear in the feature collection.
+    for each feature's geometry in order they appear in the feature collection.
     To create the geojson object from a geojson file: 
         f = open("FileName.geojson") 
         geojson_obj = geojson.loads(f.read()) OR geojson_obj = json.loads(f.read()). 
